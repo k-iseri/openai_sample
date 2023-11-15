@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <script type="text/javascript">
+      function sendClick() {
+        const originalText = document.getElementById("response").value;
+        let responseText = "";
+        const prompt = document.getElementById("input").value;
+        const req = new XMLHttpRequest();
+        req.addEventListener("progress", (event) => {
+          responseText = event.target.responseText;
+          document.getElementById("response").value =
+            originalText + (originalText.length ? "\n\n" : "") + responseText;
+        });
+        req.open(
+          "POST",
+          /* デプロイ先に応じて書き換えること */
+          "https://fxnbevmsbyozibmwgbmo2acfbi0hzuwh.lambda-url.ap-northeast-1.on.aws/"
+        );
+        req.setRequestHeader("Content-Type", "application/json");
+        req.send(JSON.stringify({ prompt }));
+      }
+    </script>
+    <style type="text/css">
+      body {
+        padding: 1rem;
+      }
+      input {
+        width: 640px;
+        padding: 0.4rem;
+        font-size: 1rem;
+      }
+      textarea {
+        display: block;
+        width: 640px;
+        height: 320px;
+        margin-top: 1rem;
+        padding: 0.4rem;
+        font-size: 1rem;
+      }
+      button {
+        margin-left: 0.4rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>AWS ChatGPT Test</h1>
+    <input type="text" id="input" value="" placeholder="何でも聞いてね" />
+    <button id="button" onclick="sendClick()">送信</button>
+    <textarea id="response" placeholder="ここに返答が表示されます"></textarea>
+  </body>
+</html>
