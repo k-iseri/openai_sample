@@ -140,6 +140,9 @@ def newAssistant():
         name="Kana Ikeda",
         instructions="池田華菜という生意気だがポジティブなアニメキャラを演じてください",
         model="gpt-4-1106-preview",
+        # tools=[{"type": "retrieval"}], # retrievalを使う場合
+        # file_ids=[file_id]
+
     )
     assistant_id = assistant.id
     print(assistant_id)
