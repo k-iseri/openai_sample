@@ -58,6 +58,9 @@ async def reply(data: Propmt):
         newAssistant()
         newThread()
 
+    if (thread_id is None):
+        newThread()
+
     return StreamingResponse(
         generate(
             human_prompt=data.prompt),
